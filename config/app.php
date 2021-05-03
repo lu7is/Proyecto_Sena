@@ -227,6 +227,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'key' => env('APP_KEY'),
+        'cipher' => env('APP_KEY'),
 
     ],
 
