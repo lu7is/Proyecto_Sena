@@ -3,8 +3,11 @@
 
 @section('content')
 <div class="container">
-    
-<a href="{{url('empleado/create')}}"><button class="btn btn-success">Registrar Empleados</button></a>|**|<a href="{{url('home/')}}"><button class="btn btn-primary">Regresar a la pagina prncipals</button></a><br><br><br><br>
+
+<div class="d-flex justify-content-around d-inline-block mb-5">
+  <a href="{{url('home/')}}"> <button class="btn btn-primary"><i class="fas fa-chevron-left pr-2"></i> Inicio</button></a>
+  <a href="{{url('empleado/create')}}"><button class="btn btn-success"><i class="fas fa-user-plus pr-2"></i>Registrar Empleados</button></a>
+</div>
 
 <table class="table">
     <thead class="thead-dark">
@@ -24,35 +27,33 @@
       </tr>
     </thead>
     <tbody>
-        @foreach ($empleados as $empleado)
-    <tr>
-        <td>{{$empleado->id}}</td>
-        <td>{{$empleado->Nombre}}</td>
-        <td>{{$empleado->Apellido}}</td>
-        <td>{{$empleado->Celular}}</td>
-        <td>{{$empleado->Telefono}}</td>
-        <td>{{$empleado->Direccion}}</td>
-        <td>{{$empleado->Correo}}</td>
-        <td>{{$empleado->Usuario}}</td>
-        <td>{{$empleado->Contraseña}}</td>
-        <td>{{$empleado->Estado}}</td>
-        <td>{{$empleado->Rol}}</td>
-
-        <td>
-            <a href="{{url('/empleado/'.$empleado->id.'/edit')}}"><button class="btn btn-warning">Editar</button></a>
-        |
-        <form action="{{url('/empleado/'.$empleado->id)}}"  class="d-inline" method="post">
-        @csrf
-        {{method_field('DELETE')}}
-            <input type="submit" onclick="return confirm('Deseas eliminar?')" class="btn btn-danger" value="Eliminar" >
-        </form>
-        
-        </td>
-        
-        
-     </tr>
-  
-      @endforeach
+    @foreach ($empleados as $empleado)
+    @if($empleado->Estado == "Activo")
+    <tr class="table-success">
+    @else
+    <tr class="table-danger">
+    @endif
+      <td>{{$empleado->id}}</td>
+      <td>{{$empleado->Nombre}}</td>
+      <td>{{$empleado->Apellido}}</td>
+      <td>{{$empleado->Celular}}</td>
+      <td>{{$empleado->Telefono}}</td>
+      <td>{{$empleado->Direccion}}</td>
+      <td>{{$empleado->Correo}}</td>
+      <td>{{$empleado->Usuario}}</td>
+      <td>{{$empleado->Contraseña}}</td>
+      <td>{{$empleado->Estado}}</td>
+      <td>{{$empleado->Rol}}</td>
+      <td>
+      <a href="{{url('/empleado/'.$empleado->id.'/edit')}}"><button class="btn btn-warning"><i class="fas fa-user-edit"></i></button></a>
+      <form action="{{url('/empleado/'.$empleado->id)}}"  class="d-inline" method="post">
+      @csrf
+      {{method_field('DELETE')}}
+      <a onclick="return confirm('Deseas eliminar?')" href="{{url('/empleado/'.$empleado->id.'/edit')}}"><button class="btn btn-danger"><i class="fas fa-user-minus"></i></button></a>
+      </form>
+      </td>
+    </tr>    
+    @endforeach
     </tbody>
   </table>
   
